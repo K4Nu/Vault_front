@@ -1,5 +1,5 @@
 import {useCategory,useCategories} from "./Api.jsx";
-import {useParams} from "react-router";
+import {useParams,useNavigate} from "react-router";
 import {useState,useEffect} from "react";
 
 const Category= () =>
