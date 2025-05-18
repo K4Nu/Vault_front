@@ -1,11 +1,11 @@
 import { useCategory } from "./Api.jsx";
-import { useParams, Link } from "react-router-dom";
+import {useParams, Link, useNavigate} from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const Category = () => {
     const { slug } = useParams();
     const { data: category, isLoading, isError } = useCategory(slug);
-
+    const navigate = useNavigate();
     // ─── Hooks (always at the top) ─────────────────────
     const [hoveredSlug, setHoveredSlug] = useState(null);
     const [currentItem, setCurrentItem] = useState(null);
@@ -45,6 +45,8 @@ const Category = () => {
                                 src={src}
                                 onMouseEnter={() => setHoveredSlug(item.slug)}
                                 onMouseLeave={() => setHoveredSlug(null)}
+                                onClick={() => navigate(`/${item.slug}`)} style={{cursor: 'pointer'}}
+
                                 alt={item.product_name}
                                 className="w-full h-auto object-cover"
                             />

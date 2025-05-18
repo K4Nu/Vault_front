@@ -3,9 +3,8 @@ import { createRoot } from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router';
-// import Product from './components/Product.jsx';
-import Category from './components/Category.jsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import SlugRouter from './SlugRouter.jsx';
 
 // Define routes with React Router
 const router = createBrowserRouter([
@@ -13,14 +12,9 @@ const router = createBrowserRouter([
         path: '/',
         element: <App />,
     },
-    // Uncomment to enable product routes by slug + ID pattern
-    // {
-    //   path: '/:slug([a-z0-9\-]+-[0-9a-f]{8})',
-    //   element: <Product />,
-    // },
     {
         path: '/:slug',
-        element: <Category />,
+        element: <SlugRouter />,
     }
 ]);
 
