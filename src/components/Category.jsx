@@ -33,18 +33,18 @@ const Category = () => {
                     const isHovered = hoveredSlug === item.slug;
                     const imgs      = item.images ?? [];
                     const src       = imgs.length > 1
-                        ? (isHovered ? imgs[1].url : imgs[0].url)
+                        ? (isHovered ? imgs[0].url : imgs[1].url)
                         : (imgs[0]?.url ?? "");
 
                     return (
                         <div
                             key={item.slug}
                             className="bg-white rounded shadow text-center"
-                            onMouseEnter={() => setHoveredSlug(item.slug)}
-                            onMouseLeave={() => setHoveredSlug(null)}
                         >
                             <img
                                 src={src}
+                                onMouseEnter={() => setHoveredSlug(item.slug)}
+                                onMouseLeave={() => setHoveredSlug(null)}
                                 alt={item.product_name}
                                 className="w-full h-auto object-cover"
                             />
