@@ -1,8 +1,8 @@
 import {useQuery} from "@tanstack/react-query";
 const productsApi = import.meta.env.VITE_productsApi_URL;
-
+const categoriesApi=import.meta.env.VITE_categoriesApi_URL;
 const fetchProducts = async() => {
-    const res = await fetch(`${productsApi}/products/`);
+    const res = await fetch(`${productsApi}/`);
     if(!res.ok) {
         throw new Error(`Failed to fetch product ${res.status}`);
     }
@@ -11,7 +11,7 @@ const fetchProducts = async() => {
 }
 
 const fetchProduct = async(slug) => {
-    const res = await fetch(`${productsApi}/products/${slug}`);
+    const res = await fetch(`${productsApi}/${slug}`);
     if(!res.ok) {
         throw new Error(`Failed to fetch product ${res.status}`);
     }
@@ -39,7 +39,7 @@ export const useProducts = () => {
 }
 
 const fetchCategories = async() => {
-    const res = await fetch(`${productsApi}/categories`);
+    const res = await fetch(`${categoriesApi}/`);
     if(!res.ok) {
         throw new Error(`Failed to fetch categories ${res.status}`);
     }
@@ -48,7 +48,7 @@ const fetchCategories = async() => {
 }
 
 const fetchCategory=async(slug) => {
-    const res = await fetch(`${productsApi}/categories/${slug}`);
+    const res = await fetch(`${categoriesApi}/${slug}`);
     if(!res.ok) {
         throw new Error(`Failed to fetch categorie ${res.status}`);
     }
