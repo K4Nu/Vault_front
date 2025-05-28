@@ -1,6 +1,7 @@
 import { useCategory } from "./Api.jsx";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Navbar from "./Navbar";
 
 const Category = () => {
     const { slug } = useParams();
@@ -23,6 +24,7 @@ const Category = () => {
 
     return (
         <>
+            <Navbar/>
             <h2>Category: {category.name}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {items.map(item => {
