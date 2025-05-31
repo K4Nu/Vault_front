@@ -2,6 +2,8 @@ import {useQuery} from "@tanstack/react-query";
 const productsApi = import.meta.env.VITE_productsApi_URL;
 const categoriesApi=import.meta.env.VITE_categoriesApi_URL;
 const fullSearchProductsApi=import.meta.env.VITE_full_search_Api_URL;
+
+
 const fetchProducts = async() => {
     const res = await fetch(`${productsApi}/`);
     if(!res.ok) {
@@ -20,13 +22,22 @@ const fetchProduct = async(slug) => {
     return data
 }
 
-export const fetchSearchProducts = async(query) => {
-    const res = await fetch(`${productsApi}/?q=${query}`);
+const fetchSearchProducts = async(query) => {
+    const res = await fetch(`${fullSearchProductsApi}/?q=${query}`);
     if (!res.ok) {
         throw new Error(`Failed to fetch search results: ${res.status}`);
     }
     const data = await res.json();
     return data;
+}
+
+export const useSearchProducts = (query) => {
+    return useQuery({
+        queryKey: ["searchProducts", query], // More descriptive key
+        queryFn: () => fetchSearchProducts(query),
+        staleTime: 1000 * 60 * 5,
+        enabled: !!query,
+    });
 }
 
 export const useProduct = (slug) => {
