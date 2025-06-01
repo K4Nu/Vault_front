@@ -1,4 +1,4 @@
-import { useCategory, fetchSearchProducts } from "./Api.jsx";
+import { useCategory, useSearchProducts } from "./Api.jsx";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import Navbar from "./Navbar";

@@ -5,12 +5,17 @@ import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import SlugRouter from './SlugRouter.jsx';
+import Category from "./components/Category.jsx";
 
 // Define routes with React Router
 const router = createBrowserRouter([
     {
         path: '/',
         element: <App />,
+    },
+    {
+        path:'/search',
+        element: <Category/>
     },
     {
         path: '/:slug',

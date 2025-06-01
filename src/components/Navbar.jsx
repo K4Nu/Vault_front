@@ -1,9 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
+import {useNavigate} from "react-router-dom";
+import { IoSearch } from "react-icons/io5";
 
 const Navbar = () => {
     const productsApi = import.meta.env.VITE_search_Api_URL;
-
+    const productFullSearchApi=import.meta.env.VITE_full_search_Api_URL;
+    const navigate=useNavigate();
     const [searchValue, setSearchValue] = useState("");
     const [searchDebounce, setSearchDebounce] = useState("");
 
@@ -46,34 +49,27 @@ const Navbar = () => {
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}
                 />
-
+                <IoSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer"
+                onClick={() => navigate(`/search?q=${searchValue}`)}
+                />
                 {/* Suggestions List */}
                 {searchDebounce && (
-                    <>
-                        {isLoading && (
-                            <div className="absolute z-10 mt-1 w-full bg-white border rounded shadow p-4">
-                                <p className="text-gray-600">Loading...</p>
-                            </div>
-                        )}
-
-                        {error && (
-                            <div className="absolute z-10 mt-1 w-full bg-white border rounded shadow p-4">
-                                <p className="text-red-500">Error loading suggestions</p>
-                            </div>
-                        )}
-
-                        {data?.results && data.results.length > 0 && !isLoading && !error && (
-                            <ul className="absolute z-10 mt-1 w-full bg-white border rounded shadow">
-                                {data.results.map((item, index) => (
+                    <>{Array.isArray(data) && data.length > 0 && !isLoading && !error && (
+                        <div className="absolute left-0 right-0 top-full mt-1 z-50 bg-white border rounded shadow">
+                            <ul>
+                                {data.map((item, index) => (
                                     <li
-                                        key={item.slug || index}  // Better to use slug as key since it's unique
+                                        key={index}
                                         className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
+                                        onClick={() => navigate(`/search?q=${encodeURIComponent(searchValue)}`)}
                                     >
-                                        {item.product_name}
+                                        {item}
                                     </li>
                                 ))}
                             </ul>
-                        )}
+                        </div>
+                    )}
+
                     </>
                 )}
             </div>
